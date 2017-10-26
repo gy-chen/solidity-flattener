@@ -1,6 +1,6 @@
 #!python3
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name='solidity-flattener',
@@ -9,5 +9,10 @@ setup(
     author_email='team@blockcat.io',
     url='https://github.com/BlockCatIO/solidity-flattener',
     version='0.1.1',
-    scripts=['src/solidity_flattener']
+    packages=find_packages(),
+    entry_points={
+        'console_scripts': [
+            'solidity_flattener=solidity_flattener:main'
+        ]
+    }
 )
