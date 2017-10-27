@@ -81,7 +81,7 @@ def main():
 					 NOTE: This does not work with imports that are aliased (i.e. import './A.sol' as B; )")
 	parser.add_argument("target_solidity_file",
 		help="Specifies the target Solidity source file to flatten.")
-	parser.add_argument("--output", type=ap.FileType('w+'), default=sys.stdout, metavar="FILENAME",
+	parser.add_argument("--output", type=ap.FileType('w+', encoding='utf-8'), default=sys.stdout, metavar="FILENAME",
 		help="Specifies the output destination filename. Outputs to stdout by default.")
 	parser.add_argument("--solc-paths", default="",
 		help="Specifies the path replacements to pass onto solidity. See solc --help for more information.")
@@ -91,7 +91,7 @@ def main():
 		solc_args = ["solc", args.solc_paths, "--ast", args.target_solidity_file]
 	else:
 		solc_args = ["solc", "--ast", args.target_solidity_file]
-	solc_proc = subprocess.run(solc_args, stdout=subprocess.PIPE, universal_newlines=True)
+	solc_proc = subprocess.run(solc_args, stdout=subprocess.PIPE, universal_newlines=True, encoding='utf-8')
 	solc_proc.check_returncode()
 	flatten_contract(solc_proc.stdout, args.output)
 
